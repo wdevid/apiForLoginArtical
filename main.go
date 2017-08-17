@@ -4,8 +4,8 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
-	"samples/apiForLoginArtical/models"
-	"samples/apiForLoginArtical/controllers"
+	"apiForLoginArtical/models"
+	"apiForLoginArtical/controllers"
 )
 
 func main() {
@@ -19,5 +19,6 @@ func main() {
 	beego.Router("/example/expand", &controllers.ExpandController{})
 	beego.Router("/example/regester", &controllers.RegesterController{})
 	beego.Router("/example/login", &controllers.LoginController{})
+	beego.Router("/example/artical", &controllers.StoryControllers{})
 	beego.Run()
 }

@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
-	"samples/apiForLoginArtical/models"
-	"samples/apiForLoginArtical/utils"
+	"apiForLoginArtical/models"
+	"apiForLoginArtical/utils"
 )
 
 type RegesterController struct {
