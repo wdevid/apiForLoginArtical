@@ -13,25 +13,28 @@ type CircleControllers struct {
 
 func (this *CircleControllers) Post(){
 	a,err := this.GetInt("page",-1)
-	if err==nil {
+	go circles(err, a, this)
+	this.ServeJSON()
+}
+func circles(err error, a int, this *CircleControllers) {
+	if err == nil {
 		o := orm.NewOrm()
 		o.Using("myapp")
-		customers := make([]*models.Customer,20)
-		ids := make([]int64,a,a+20)
-		for _,num :=range ids{
+		customers := make([]*models.Customer, 20)
+		ids := make([]int64, a, a+20)
+		for _, num := range ids {
 			cus := new(models.Customer)
 			cus.Id = num
 			err := o.Read(cus)
-			if err!=nil {
+			if err != nil {
 				this.Data["json"] = "{\"circle\":\"没有更多数据!!!\"}"
-			}else {
+			} else {
 				customers[num] = cus
 			}
 		}
-		this.Data["json"],err = json.Marshal(&customers)
+		this.Data["json"], err = json.Marshal(&customers)
 
-	}else {
+	} else {
 		this.Data["json"] = "{\"circle\":\"没有更多数据!!!\"}"
 	}
-	this.ServeJSON()
 }
