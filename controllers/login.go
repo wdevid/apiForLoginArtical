@@ -6,6 +6,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"apiForLoginArtical/models"
 	"apiForLoginArtical/utils"
+	"apiForLoginArtical/mylog"
 )
 
 type LoginController struct {
@@ -18,6 +19,7 @@ func login(this *LoginController) {
 	var ob models.User
 	json.Unmarshal(this.Ctx.Input.RequestBody, &ob)
 	passWd, err := utils.Base64Decode([]byte(ob.PassWord))
+	mylog.LogersError(err.Error())
 	if err == nil {
 		o := orm.NewOrm()
 		o.Using("myapp")

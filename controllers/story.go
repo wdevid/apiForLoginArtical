@@ -5,6 +5,7 @@ import (
 	"apiForLoginArtical/models"
 	"encoding/json"
 	"github.com/astaxie/beego/orm"
+	"apiForLoginArtical/mylog"
 )
 
 type StoryControllers struct {
@@ -21,6 +22,7 @@ func story(this *StoryControllers) {
 	o := orm.NewOrm()
 	o.Using("myapp")
 	_, err := o.Insert(&artical)
+	mylog.LogersError(err.Error())
 	if err != nil {
 		this.Data["json"] = "{\"artical\":\"发布成功!!!\"}"
 	} else {

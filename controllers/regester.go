@@ -6,6 +6,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"apiForLoginArtical/models"
 	"apiForLoginArtical/utils"
+	"apiForLoginArtical/mylog"
 )
 
 type RegesterController struct {
@@ -24,6 +25,7 @@ func regester(this *RegesterController) {
 	o := orm.NewOrm()
 	o.Using("myapp")
 	_, err := o.Insert(&ob)
+	mylog.LogersError(err.Error())
 	if err != nil {
 		this.Data["json"] = "{\"state\":\"0\"}"
 	} else {
