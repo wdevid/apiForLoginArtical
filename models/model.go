@@ -19,7 +19,9 @@ type User struct {
 	PassWord string `orm:"size(500)"`
 	Id       int64 `auto:"true" index:"pk"`
 	Customer    *Customer   `orm:"rel(one)"` // OneToOne relation
-
+	HeadPortrait string
+	IsHead int64 //是否设置头像0是,1否
+	HeadPath string
 }
 
 type Store struct {

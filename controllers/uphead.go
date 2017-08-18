@@ -1,28 +1,23 @@
 package controllers
 
 import (
-	"encoding/json"
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
-	"apiForLoginArtical/models"
-	"apiForLoginArtical/utils"
-	"apiForLoginArtical/mylog"
+	"encoding/json"
 	"strings"
+	"apiForLoginArtical/models"
+	"github.com/astaxie/beego/orm"
+	mylog "apiForLoginArtical/mylog"
 )
 
-type RegesterController struct {
+type UpHeadController struct {
 	beego.Controller
 }
-
-
-func (this *RegesterController) Post() {
-	go regester(this)
-}
-func regester(this *RegesterController) {
+/**
+更新或者上传用户头像
+ */
+func Post(this *UpHeadController)  {
 	var ob models.User
 	json.Unmarshal(this.Ctx.Input.RequestBody, &ob)
-	passWd := utils.Base64Encode([]byte(ob.PassWord))
-	ob.PassWord = string(passWd)
 	if ob.IsHead == 0 {
 		f,h,_:=this.GetFile("filename")
 		path := h.Filename
@@ -37,7 +32,7 @@ func regester(this *RegesterController) {
 	}
 	o := orm.NewOrm()
 	o.Using("myapp")
-	_, err := o.Insert(&ob)
+	_, err := o.Update(&ob)
 	mylog.LogersError(err.Error())
 	if err != nil {
 		this.Data["json"] = "{\"state\":\"0\"}"

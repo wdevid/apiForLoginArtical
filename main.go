@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	beego.SetStaticPath("/", "FileForPortrait")
 	models.RegisterDB()
 	//// 开启 ORM 调试模式
 	orm.Debug = true
