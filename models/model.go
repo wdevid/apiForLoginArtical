@@ -22,6 +22,7 @@ type User struct {
 	HeadPortrait string
 	IsHead int64 //是否设置头像0是,1否
 	HeadPath string
+	Session string
 }
 
 type Store struct {
@@ -56,7 +57,7 @@ func RegisterDB() {
 	//注册 model
 	orm.RegisterModel(new(User), new(Store), new(Customer))
 	//注册默认数据库
-	orm.RegisterDataBase("default", "mysql", "root:root@/myapp?charset=utf8", 30, 30) //密码为空格式
+	orm.RegisterDataBase("default", "mysql", "root:root@/myapp?charset=utf8&loc=Asia%2FShanghai", 30, 30) //密码为空格式
 }
 
 func Generate() (tiny string) {
