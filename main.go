@@ -1,15 +1,17 @@
 package main
 
 import (
+	"apiForLoginArtical/controllers"
+	"apiForLoginArtical/models"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
-	"apiForLoginArtical/models"
-	"apiForLoginArtical/controllers"
 )
 
 func main() {
 	beego.SetStaticPath("/", "FileForPortrait")
+	beego.BConfig.WebConfig.Session.SessionOn = true
 	models.RegisterDB()
 	//// 开启 ORM 调试模式
 	orm.Debug = true

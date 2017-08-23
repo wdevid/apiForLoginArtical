@@ -1,31 +1,35 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
-	"encoding/json"
-	"github.com/astaxie/beego/orm"
 	"apiForLoginArtical/models"
-	"apiForLoginArtical/utils"
 	"apiForLoginArtical/mylog"
+	"apiForLoginArtical/utils"
+	"encoding/json"
+
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
 )
 
 type LoginController struct {
 	beego.Controller
 }
-func (this *LoginController) Post()  {
+
+func (this *LoginController) Post() {
 	go login(this)
 }
+
 func login(this *LoginController) {
 	var ob models.User
 	json.Unmarshal(this.Ctx.Input.RequestBody, &ob)
 	sess := &ob.Session
 	ssion := this.GetSession("login")
-	if sess == ssion{
 
-	}else {
-		this.SetSession("login",sess)
+	if sess == ssion {
+
+	} else {
+		this.SetSession("login", sess)
 	}
-	passWd, err := utils.Base64Decode([]byte(&ob.PassWord))
+	passWd, err := utils.Base64Decode([]byte(ob.PassWord))
 	mylog.LogersError(err.Error())
 	if err == nil {
 		o := orm.NewOrm()
